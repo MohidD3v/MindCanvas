@@ -1,0 +1,81 @@
+@use '../../styles/_main' as *;
+
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.cursor-dot {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  background: var(--neon-pink);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-pink);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--neon-blue);
+  border-radius: 50%;
+  transition: all 0.1s ease;
+  animation: rotate 3s linear infinite;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--neon-green);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: rotate 2s linear infinite reverse;
+  }
+}
+
+// Hide default cursor on interactive elements
+button, input, .mood-card, .generate-btn {
+  cursor: none;
+  
+  &:hover {
+    .custom-cursor {
+      .cursor-ring {
+        transform: scale(1.5);
+        border-color: var(--neon-pink);
+      }
+      
+      .cursor-dot {
+        background: var(--neon-blue);
+        box-shadow: 0 0 15px var(--neon-blue);
+      }
+    }
+  }
+}
+
+// Mobile fallback
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  button, input, .mood-card, .generate-btn {
+    cursor: pointer;
+  }
+} 

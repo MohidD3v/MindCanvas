@@ -1,0 +1,231 @@
+@use '../../styles/_main' as *;
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.preloader-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.logo-container {
+  position: relative;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.logo-text {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  font-family: var(--font-primary);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    letter-spacing: 0.2em;
+  }
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--neon-pink) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: pulse 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 0 auto var(--spacing-lg);
+  overflow: hidden;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    width: 250px;
+    height: 3px;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      var(--neon-pink) 20%, 
+      var(--neon-blue) 50%, 
+      var(--neon-purple) 80%, 
+      transparent 100%);
+    animation: progressFlow 2s ease-in-out infinite;
+  }
+}
+
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+  border-radius: 2px;
+  animation: loadingProgress 3s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+.loading-text {
+  color: var(--neon-blue);
+  font-size: 1.1rem;
+  font-family: var(--font-secondary);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-lg);
+  animation: pulse 2s ease-in-out infinite;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-pink);
+  border-radius: 50%;
+  animation: dotPulse 1.5s ease-in-out infinite;
+  
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+.background-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+.floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--neon-blue);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.6;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+  }
+}
+
+// ===== ANIMATIONS =====
+@keyframes loadingProgress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+@keyframes dotPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .preloader-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .preloader-text h1 {
+    font-size: 2.5rem;
+  }
+  
+  .preloader-text .loading-text {
+    font-size: 1rem;
+  }
+} 

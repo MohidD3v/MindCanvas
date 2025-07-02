@@ -1,0 +1,282 @@
+@use '../../styles/_main' as *;
+
+.moodboard-generator {
+  min-height: 100vh;
+  padding: var(--spacing-xxl);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, var(--neon-pink) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, var(--neon-blue) 0%, transparent 50%);
+    opacity: 0.03;
+    z-index: 0;
+  }
+}
+
+.moodboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xxl);
+  position: relative;
+  z-index: 1;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+  }
+}
+
+.back-btn {
+  @include cyberpunk-button;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1rem;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.mood-info {
+  text-align: right;
+  
+  @media (max-width: 768px) {
+    text-align: left;
+  }
+}
+
+.mood-title {
+  font-size: 2.5rem;
+  color: var(--neon-blue);
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.mood-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-secondary);
+}
+
+.moodboard-container {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.moodboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  perspective: 1000px;
+}
+
+.moodboard-item-wrapper {
+  transition: all 0.5s ease;
+  transform-style: preserve-3d;
+  
+  &:hover {
+    transform: translateZ(20px) scale(1.05) !important;
+  }
+}
+
+.moodboard-item {
+  @include glassmorphism;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 0 30px var(--neon-blue);
+    
+    .item-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.image-item {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.1);
+  }
+}
+
+.quote-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+  
+  blockquote {
+    font-size: 1.3rem;
+    color: white;
+    font-family: var(--font-secondary);
+    font-style: italic;
+    line-height: 1.6;
+    position: relative;
+    
+    &::before,
+    &::after {
+      content: '"';
+      font-size: 3rem;
+      color: var(--neon-pink);
+      position: absolute;
+      opacity: 0.5;
+    }
+    
+    &::before {
+      top: -20px;
+      left: -20px;
+    }
+    
+    &::after {
+      bottom: -40px;
+      right: -20px;
+    }
+  }
+}
+
+.color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+}
+
+.color-swatch {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px currentColor;
+  animation: pulse 3s ease-in-out infinite;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.color-info {
+  text-align: center;
+}
+
+.color-hex {
+  font-size: 1.2rem;
+  color: white;
+  font-family: var(--font-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.item-overlay {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--neon-blue);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border: 1px solid var(--neon-blue);
+}
+
+.moodboard-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.action-btn {
+  @include cyberpunk-button;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 1rem;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  &.regenerate-btn {
+    background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+    
+    &:hover {
+      box-shadow: 0 0 20px var(--neon-green);
+    }
+  }
+  
+  &.download-btn {
+    background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+    
+    &:hover {
+      box-shadow: 0 0 20px var(--neon-purple);
+    }
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .moodboard-generator {
+    padding: var(--spacing-lg);
+  }
+  
+  .moodboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .moodboard-item {
+    height: 250px;
+  }
+  
+  .quote-item blockquote {
+    font-size: 1.1rem;
+  }
+  
+  .color-swatch {
+    width: 80px;
+    height: 80px;
+  }
+} 

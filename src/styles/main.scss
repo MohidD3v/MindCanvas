@@ -1,0 +1,159 @@
+// Main SCSS file for MindCanvas
+// Imports all styles and sets up global styles
+
+// Import variables and mixins from _main.scss
+@use '_main' as *;
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--dark-bg);
+  color: white;
+  line-height: 1.6;
+  overflow-x: hidden;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, var(--neon-pink) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, var(--neon-blue) 0%, transparent 50%);
+    opacity: 0.02;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+#app {
+  min-height: 100vh;
+  position: relative;
+}
+
+.app {
+  min-height: 100vh;
+  position: relative;
+}
+
+// Utility classes
+.text-gradient {
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-purple));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+.glass-panel {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+  border-radius: 4px;
+  
+  &:hover {
+    background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+  }
+}
+
+// Selection styling
+::selection {
+  background: var(--neon-pink);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--neon-pink);
+  color: white;
+}
+
+// Focus styles
+*:focus {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+// Loading states
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--neon-blue);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// Additional animations
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Responsive utilities
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .glass-panel {
+    backdrop-filter: blur(5px);
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+} 

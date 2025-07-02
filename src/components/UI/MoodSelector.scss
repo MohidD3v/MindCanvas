@@ -1,0 +1,161 @@
+@use '../../styles/_main' as *;
+
+.mood-selector {
+  width: 100%;
+  
+  .selector-title {
+    font-size: 1.5rem;
+    color: var(--neon-blue);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    font-family: var(--font-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.mood-card {
+  @include glassmorphism;
+  padding: var(--spacing-lg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--mood-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    border-color: var(--mood-color);
+    box-shadow: 0 0 20px var(--mood-color);
+    
+    &::before {
+      opacity: 0.1;
+    }
+    
+    .mood-color-dot {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px var(--mood-color);
+    }
+  }
+  
+  &.selected {
+    border-color: var(--mood-color);
+    box-shadow: 0 0 25px var(--mood-color);
+    background: rgba(0, 0, 0, 0.5);
+    
+    &::before {
+      opacity: 0.2;
+    }
+    
+    .mood-color-dot {
+      transform: scale(1.3);
+      box-shadow: 0 0 20px var(--mood-color);
+    }
+    
+    .mood-name {
+      color: var(--mood-color);
+    }
+  }
+}
+
+.mood-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.mood-color-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.mood-info {
+  text-align: center;
+}
+
+.mood-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-primary);
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.mood-description {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--spacing-md);
+  font-family: var(--font-secondary);
+  line-height: 1.4;
+}
+
+.mood-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.keyword-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--neon-blue);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: var(--neon-blue);
+  }
+}
+
+// ===== RESPONSIVE =====
+@media (max-width: 768px) {
+  .mood-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .mood-card {
+    padding: var(--spacing-md);
+  }
+  
+  .mood-name {
+    font-size: 1.1rem;
+  }
+  
+  .mood-description {
+    font-size: 0.85rem;
+  }
+} 
