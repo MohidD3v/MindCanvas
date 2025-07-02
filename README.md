@@ -45,7 +45,7 @@ MindCanvas is a fully responsive, interactive web application that generates per
 
 1. **Clone the repository**
    ```bash
-   git clone (https://github.com/MohidD3v/MindCanvas.git)
+   git clone https://github.com/MohidD3v/MindCanvas.git
    cd mindcanvas
    ```
 
