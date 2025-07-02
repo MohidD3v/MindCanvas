@@ -45,7 +45,7 @@ MindCanvas is a fully responsive, interactive web application that generates per
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone (https://github.com/MohidD3v/MindCanvas.git)
    cd mindcanvas
    ```
 
@@ -153,4 +153,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ and neon lights** 
+**Made with ❤️ and neon lights**
+***Dev : Mohid*** 
